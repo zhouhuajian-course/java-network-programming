@@ -12,5 +12,6 @@ public class Client {
         System.out.println("add a breakpoint here, and use evaluate expressionion.");
         // sc.write(Charset.defaultCharset().encode("abc"))
         // sc.write(Charset.defaultCharset().encode("123"))
+        // sc.close()
     }
 }

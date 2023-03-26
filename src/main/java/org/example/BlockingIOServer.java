@@ -19,7 +19,7 @@ public class BlockingIOServer {
         ssc.bind(new InetSocketAddress(8080));
         ArrayList<SocketChannel> socketChannels = new ArrayList<>();
         while (true) {
-            // blocking method
+            // blocking
             log.debug("accept...");
             SocketChannel sc = ssc.accept();
             log.debug("client connected {}", sc);
@@ -27,7 +27,7 @@ public class BlockingIOServer {
             for (SocketChannel socketChannel : socketChannels) {
                 ByteBuffer byteBuffer = ByteBuffer.allocate(16);
                 log.debug("read...");
-                // blocking method
+                // blocking
                 socketChannel.read(byteBuffer);
                 byteBuffer.flip();
                 log.debug("data read {}",  Charset.defaultCharset().decode(byteBuffer).toString());
