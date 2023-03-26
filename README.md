@@ -15,6 +15,8 @@ accept read 非阻塞
 
 或叫做事件驱动IO
 
+很好地利用了CPU资源，该阻塞时阻塞，该处理时处理，但单线程没充分利用多核CPU，可改用boss线程负责accept，worker线程负责read和write
+
 ```text
 // 客户端可读时，触发OP_READ事件， 正常数据 >= 0 客户端正常断开连接 -1  客户端异常断开连接 抛IOException 远程主机强迫关闭了一个现有的连接
 public static final int OP_READ = 1 << 0; 
