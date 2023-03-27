@@ -1,17 +1,21 @@
 # Java 网络编程
 
-## 单线程 阻塞IO Blocking I/O
+## TCP 编程
+
+粘包、半包、消息边界、大数据无法一次write传输、大数据无法一次read接收
+
+### 单线程 阻塞IO Blocking I/O
 
 accept 阻塞的时候，不能 read  
 read 阻塞的时候，不能 accept
 
-## 单线程 非阻塞IO Non-blocking I/O
+### 单线程 非阻塞IO Non-blocking I/O
 
 accept read 非阻塞
 
 可正常 accept read 但 CPU 长时间空转 电脑风扇会响 约使用 20% CPU
 
-## 单线程 多路复用 I/O multiplexing
+### 单线程 多路复用 I/O multiplexing
 
 或叫做事件驱动IO
 
@@ -27,13 +31,20 @@ public static final int OP_CONNECT = 1 << 3;
 public static final int OP_ACCEPT = 1 << 4;
 ```
 
-## 信号驱动 signal-driven I/O
+### 信号驱动 signal-driven I/O
 
-## 异步IO asynchronous I/O
+### 异步IO asynchronous I/O
 
-## 其他
+### 其他
 
 Server Client 都用调试方式运行 方便调试
 
 调试状态下，可选中代码，再点击 Evaluate Expression
 
+## UDP 编程
+
+![](udp-wireshark-01.png)
+
+![](udp-wireshark-02.png)
+
+![](udp-wireshark-03.png)

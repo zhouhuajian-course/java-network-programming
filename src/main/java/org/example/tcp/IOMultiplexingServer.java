@@ -1,4 +1,4 @@
-package org.example;
+package org.example.tcp;
 
 import javafx.scene.control.SelectionMode;
 import lombok.extern.slf4j.Slf4j;
