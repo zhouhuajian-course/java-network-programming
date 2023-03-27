@@ -48,3 +48,8 @@ Server Client 都用调试方式运行 方便调试
 ![](udp-wireshark-02.png)
 
 ![](udp-wireshark-03.png)
+
+自定义协议 底层基于UDP协议
+
+协议头 两个字节 总长度 一个字节序列化类型 两个字节 校验  
+协议体 
