@@ -4,6 +4,10 @@
 
 粘包、半包、消息边界、大数据无法一次write传输、大数据无法一次read接收
 
+零拷贝  
+
+![](readme/zero-copy.png)
+
 动态分配缓冲区
 
 + 方案1 大小不够动态扩容*2 优点简单方便 缺点扩容和复制 性能较差
@@ -41,28 +45,33 @@ public static final int OP_ACCEPT = 1 << 4;
 
 ```text
 Connected to the target VM, address: '127.0.0.1:54152', transport: 'socket'
-17:22:38.068 [main] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- boss selecting...
-17:22:38.068 [worker-1] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
-17:22:38.068 [worker-0] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
-17:22:43.560 [main] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- client connected java.nio.channels.SocketChannel[connected local=/127.0.0.1:8080 remote=/127.0.0.1:54166]
-17:22:43.563 [main] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- boss selecting...
-17:22:43.563 [worker-0] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
-17:22:54.285 [main] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- client connected java.nio.channels.SocketChannel[connected local=/127.0.0.1:8080 remote=/127.0.0.1:54170]
-17:22:54.286 [main] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- boss selecting...
-17:22:54.286 [worker-1] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
-17:23:20.574 [worker-0] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- data read abc
-17:23:20.574 [worker-0] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
-17:23:26.975 [worker-0] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- data read abc
-17:23:26.976 [worker-0] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
-17:23:42.652 [worker-1] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- data read 123
-17:23:42.653 [worker-1] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
-17:23:43.271 [worker-1] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- data read 123
-17:23:43.272 [worker-1] DEBUG org.example.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
+17:22:38.068 [main] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- boss selecting...
+17:22:38.068 [worker-1] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
+17:22:38.068 [worker-0] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
+17:22:43.560 [main] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- client connected java.nio.channels.SocketChannel[connected local=/127.0.0.1:8080 remote=/127.0.0.1:54166]
+17:22:43.563 [main] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- boss selecting...
+17:22:43.563 [worker-0] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
+17:22:54.285 [main] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- client connected java.nio.channels.SocketChannel[connected local=/127.0.0.1:8080 remote=/127.0.0.1:54170]
+17:22:54.286 [main] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- boss selecting...
+17:22:54.286 [worker-1] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
+17:23:20.574 [worker-0] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- data read abc
+17:23:20.574 [worker-0] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
+17:23:26.975 [worker-0] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- data read abc
+17:23:26.976 [worker-0] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
+17:23:42.652 [worker-1] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- data read 123
+17:23:42.653 [worker-1] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
+17:23:43.271 [worker-1] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- data read 123
+17:23:43.272 [worker-1] DEBUG org.example.newio.tcp.MultiThreadIOMultiplexingServer -- worker selecting...
 ```
 
 ### 信号驱动 signal-driven I/O
 
 ### 异步IO asynchronous I/O
+
+Windows 真正实现了 异步IO  
+Linux 2.6以后才支持，而且不是真正的 异步IO，底层使用IO多路复用实现
+
+netty 5.x 使用了 异步IO 但性能不但没提升，还让架构更加复杂，作者推荐使用 netty 4.x
 
 ### 其他
 
@@ -72,13 +81,17 @@ Server Client 都用调试方式运行 方便调试
 
 ## UDP 编程
 
-![](udp-wireshark-01.png)
+![](readme/udp-wireshark-01.png)
 
-![](udp-wireshark-02.png)
+![](readme/udp-wireshark-02.png)
 
-![](udp-wireshark-03.png)
+![](readme/udp-wireshark-03.png)
 
 自定义协议 底层基于UDP协议
 
 协议头 两个字节 总长度 一个字节序列化类型 两个字节 校验  
 协议体 
+
+## Netty
+
+https://github.com/zhouhuajian-course/netty-source-code-analysis

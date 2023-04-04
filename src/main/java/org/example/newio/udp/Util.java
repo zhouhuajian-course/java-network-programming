@@ -1,4 +1,4 @@
-package org.example.udp;
+package org.example.newio.udp;
 
 import com.google.gson.Gson;
 

@@ -1,4 +1,4 @@
-package org.example.udp;
+package org.example.newio.udp;
 
 import lombok.extern.slf4j.Slf4j;
 

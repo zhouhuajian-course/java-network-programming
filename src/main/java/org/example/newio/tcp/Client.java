@@ -1,9 +1,8 @@
-package org.example.tcp;
+package org.example.newio.tcp;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.SocketChannel;
-import java.nio.charset.Charset;
 
 public class Client {
     public static void main(String[] args) throws IOException {

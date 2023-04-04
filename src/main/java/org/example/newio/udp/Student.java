@@ -1,4 +1,4 @@
-package org.example.udp;
+package org.example.newio.udp;
 
 public class Student {
     String name;
